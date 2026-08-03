@@ -1,4 +1,4 @@
-public class bubbleSort {
+public class BubbleSort {
     public static void main(String[] args) {
         int[] vetor = { 10, 5, 8, 2, 7 };
         int flag = 1;
