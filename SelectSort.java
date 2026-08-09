@@ -1,19 +1,29 @@
+import java.util.Random;
+
 public class SelectSort {
     public static void main(String[] args) {
-        int[] vetor = { 10, 5, 8, 2, 7 };
-        int tam = vetor.length;
+        Random rand = new Random();
+        int[] vetor = new int[1000];
 
-        for (int p1 = 0; p1 < (tam - 1); p1++) {
-            for (int p2 = 1; p2 < tam; p2++) {
+        for (int i = 0; i < vetor.length; i++) {
+            vetor[i] = rand.nextInt(1000);
+        }
 
-                int flag = 0;
-                int back = p1;
+        for (int p1 = 0; p1 < vetor.length - 1; p1++) {
+            int posMaior = p1;
+            int flag = 0;
 
-                if (vetor[p1] < vetor[p2]) {
-                    int aux = vetor[p1];
-                    vetor[p1] = vetor[p2];
-                    vetor[p2] = aux;
+            for (int p2 = p1 + 1; p2 < vetor.length; p2++) {
+                if (vetor[p2] > vetor[posMaior]) {
+                    posMaior = p2;
+                    flag = 1;
                 }
+            }
+
+            if (flag == 1) {
+                int aux = vetor[p1];
+                vetor[p1] = vetor[posMaior];
+                vetor[posMaior] = aux;
             }
         }
 
@@ -22,12 +32,3 @@ public class SelectSort {
         }
     }
 }
-
-/*
- * if (vetor[i] < vetor[i + 1]) {
- * int aux = vetor[i];
- * vetor[i] = vetor[i + 1];
- * vetor[i + 1] = aux;
- * flag = 1;
- * }
- */
