@@ -19,7 +19,7 @@ public class InsertionSort {
             int j = p1 - 1;
 
             while (j >= 0 && vetor[j] > aux) {
-                vetor[j + 1] = vetor[j]; // empurra
+                vetor[j + 1] = vetor[j]; 
                 j--;
             }
 
