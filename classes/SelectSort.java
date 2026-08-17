@@ -1,7 +1,8 @@
+package classes;
 import java.util.Random;
 
 public class SelectSort {
-    public static void main(String[] args) {
+    public void selectSort(){
         Random rand = new Random();
         int[] vetor = new int[1000];
 
