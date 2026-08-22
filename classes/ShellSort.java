@@ -1,21 +1,8 @@
 package classes;
-import java.util.Random;
 
 public class ShellSort {
 
-    public void shellSort() {
-
-        int[] vetor = { 4, 5, 6, 2, 3, 1 };
-
-        /*
-         * Random rand = new Random();
-         * int[] vetor = new int[1000];
-         * 
-         * for (int i = 0; i < vetor.length; i++) {
-         * vetor[i] = rand.nextInt(1000);
-         * }
-         */
-
+    public void shellSort(int[] vetor) {
         int gap = vetor.length / 2;
 
         while (gap > 0) {
@@ -36,10 +23,6 @@ public class ShellSort {
             }
 
             gap = gap / 2;
-        }
-
-        for (int i = 0; i < vetor.length; i++) {
-            System.out.print(vetor[i] + " ");
         }
     }
 }

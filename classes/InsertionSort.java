@@ -1,17 +1,7 @@
 package classes;
-import java.util.Random;
 
 public class InsertionSort {
-    public void insertionSort(){
-        Random rand = new Random();
-        int[] vetor = new int[1000];
-
-        // int[] vetor = {10, 5, 8, 2, 7, 1, 9, 3, 6, 4};
-
-        for (int i = 0; i < vetor.length; i++) {
-            vetor[i] = rand.nextInt(1000);
-        }
-
+    public void insertionSort(int[] vetor) {
         int tam = vetor.length;
         int aux;
 
@@ -25,10 +15,6 @@ public class InsertionSort {
             }
 
             vetor[j + 1] = aux; 
-        }
-
-        for (int v : vetor) {
-            System.out.println(v);
         }
     }
 }
