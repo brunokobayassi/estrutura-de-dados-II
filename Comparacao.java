@@ -1,6 +1,7 @@
 import classes.BubbleSort;
 import classes.InsertionSort;
 import classes.MergeSort;
+import classes.QuickSort;
 import classes.SelectSort;
 import classes.ShellSort;
 
@@ -19,6 +20,7 @@ public class Comparacao {
         SelectSort selectSort = new SelectSort();
         ShellSort shellSort = new ShellSort();
         MergeSort mergeSort = new MergeSort();
+        QuickSort quickSort = new QuickSort();
 
         try (Scanner scanner = new Scanner(System.in)) {
             int opcao;
@@ -29,7 +31,7 @@ public class Comparacao {
 
                 switch (opcao) {
                     case 1:
-                        compararAlgoritmos(bubbleSort, insertionSort, selectSort, shellSort, mergeSort);
+                        compararAlgoritmos(bubbleSort, insertionSort, selectSort, shellSort, mergeSort, quickSort);
                         break;
                     case 2:
                         executarAlgoritmo("Bubble Sort", bubbleSort::bubbleSort);
@@ -45,6 +47,9 @@ public class Comparacao {
                         break;
                     case 6:
                         executarAlgoritmo("Merge Sort", mergeSort::mergeSort);
+                        break;
+                    case 7:
+                        executarAlgoritmo("Quick Sort", quickSort::quickSort);
                         break;
                     case 0:
                         System.out.println("Programa encerrado.");
@@ -64,6 +69,7 @@ public class Comparacao {
         System.out.println("4 - Selection Sort");
         System.out.println("5 - Shell Sort");
         System.out.println("6 - Merge Sort");
+        System.out.println("7 - Quick Sort");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opcao: ");
     }
@@ -88,14 +94,15 @@ public class Comparacao {
 
     private static void compararAlgoritmos(BubbleSort bubbleSort,
             InsertionSort insertionSort, SelectSort selectSort, ShellSort shellSort,
-            MergeSort mergeSort) {
+            MergeSort mergeSort, QuickSort quickSort) {
         int[] vetorOriginal = gerarVetor();
         Resultado[] resultados = {
                 medir("Bubble Sort", bubbleSort::bubbleSort, vetorOriginal),
                 medir("Insertion Sort", insertionSort::insertionSort, vetorOriginal),
                 medir("Selection Sort", selectSort::selectSort, vetorOriginal),
                 medir("Shell Sort", shellSort::shellSort, vetorOriginal),
-                medir("Merge Sort", mergeSort::mergeSort, vetorOriginal)
+                medir("Merge Sort", mergeSort::mergeSort, vetorOriginal),
+                medir("Quick Sort", quickSort::quickSort, vetorOriginal)
         };
         Arrays.sort(resultados, Comparator.comparingLong(resultado -> resultado.tempoNanos));
 
