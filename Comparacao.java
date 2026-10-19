@@ -1,8 +1,11 @@
+
 import classes.BubbleSort;
 import classes.InsertionSort;
 import classes.MergeSort;
 import classes.SelectSort;
 import classes.ShellSort;
+import classes.CombSort;
+import classes.CountingSort;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -10,15 +13,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Comparacao {
+
     private static final int TAMANHO_VETOR = 1000;
     private static final int VALOR_MAXIMO = 1000;
 
     public static void main(String[] args) {
+
         BubbleSort bubbleSort = new BubbleSort();
         InsertionSort insertionSort = new InsertionSort();
         SelectSort selectSort = new SelectSort();
         ShellSort shellSort = new ShellSort();
         MergeSort mergeSort = new MergeSort();
+        CombSort combSort = new CombSort();
+        CountingSort countingSort = new CountingSort();
 
         try (Scanner scanner = new Scanner(System.in)) {
             int opcao;
@@ -29,29 +36,47 @@ public class Comparacao {
 
                 switch (opcao) {
                     case 1:
-                        compararAlgoritmos(bubbleSort, insertionSort, selectSort, shellSort, mergeSort);
+                        compararAlgoritmos(bubbleSort, insertionSort,
+                                selectSort, shellSort, mergeSort,
+                                combSort, countingSort);
                         break;
+
                     case 2:
                         executarAlgoritmo("Bubble Sort", bubbleSort::bubbleSort);
                         break;
+
                     case 3:
                         executarAlgoritmo("Insertion Sort", insertionSort::insertionSort);
                         break;
+
                     case 4:
                         executarAlgoritmo("Selection Sort", selectSort::selectSort);
                         break;
+
                     case 5:
                         executarAlgoritmo("Shell Sort", shellSort::shellSort);
                         break;
+
                     case 6:
                         executarAlgoritmo("Merge Sort", mergeSort::mergeSort);
                         break;
+
+                    case 7:
+                        executarAlgoritmo("Comb Sort", combSort::combSort);
+                        break;
+
+                    case 8:
+                        executarAlgoritmo("Counting Sort", countingSort::countingSort);
+                        break;
+
                     case 0:
                         System.out.println("Programa encerrado.");
                         break;
+
                     default:
                         System.out.println("Opcao invalida.");
                 }
+
             } while (opcao != 0);
         }
     }
@@ -64,6 +89,8 @@ public class Comparacao {
         System.out.println("4 - Selection Sort");
         System.out.println("5 - Shell Sort");
         System.out.println("6 - Merge Sort");
+        System.out.println("7 - Comb Sort");
+        System.out.println("8 - Counting Sort");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opcao: ");
     }
@@ -74,11 +101,13 @@ public class Comparacao {
             scanner.next();
             System.out.print("Escolha uma opcao: ");
         }
+
         return scanner.nextInt();
     }
 
     private static void executarAlgoritmo(String nome, Ordenador ordenador) {
         int[] vetor = gerarVetor();
+
         long inicio = System.nanoTime();
         ordenador.ordenar(vetor);
         long fim = System.nanoTime();
@@ -86,27 +115,45 @@ public class Comparacao {
         exibirResultado(nome, fim - inicio);
     }
 
-    private static void compararAlgoritmos(BubbleSort bubbleSort,
-            InsertionSort insertionSort, SelectSort selectSort, ShellSort shellSort,
-            MergeSort mergeSort) {
+    private static void compararAlgoritmos(
+            BubbleSort bubbleSort,
+            InsertionSort insertionSort,
+            SelectSort selectSort,
+            ShellSort shellSort,
+            MergeSort mergeSort,
+            CombSort combSort,
+            CountingSort countingSort) {
+
         int[] vetorOriginal = gerarVetor();
+
         Resultado[] resultados = {
                 medir("Bubble Sort", bubbleSort::bubbleSort, vetorOriginal),
                 medir("Insertion Sort", insertionSort::insertionSort, vetorOriginal),
                 medir("Selection Sort", selectSort::selectSort, vetorOriginal),
                 medir("Shell Sort", shellSort::shellSort, vetorOriginal),
-                medir("Merge Sort", mergeSort::mergeSort, vetorOriginal)
+                medir("Merge Sort", mergeSort::mergeSort, vetorOriginal),
+                medir("Comb Sort", combSort::combSort, vetorOriginal),
+                medir("Counting Sort", countingSort::countingSort, vetorOriginal)
         };
-        Arrays.sort(resultados, Comparator.comparingLong(resultado -> resultado.tempoNanos));
 
-        System.out.println("\nTempos para o mesmo vetor de " + TAMANHO_VETOR + " elementos:");
+        Arrays.sort(resultados,
+                Comparator.comparingLong(resultado -> resultado.tempoNanos));
+
+        System.out.println("\nTempos para o mesmo vetor de "
+                + TAMANHO_VETOR + " elementos:");
+
         for (Resultado resultado : resultados) {
             exibirResultado(resultado.nome, resultado.tempoNanos);
         }
     }
 
-    private static Resultado medir(String nome, Ordenador ordenador, int[] vetorOriginal) {
+    private static Resultado medir(
+            String nome,
+            Ordenador ordenador,
+            int[] vetorOriginal) {
+
         int[] vetor = Arrays.copyOf(vetorOriginal, vetorOriginal.length);
+
         long inicio = System.nanoTime();
         ordenador.ordenar(vetor);
         long fim = System.nanoTime();
@@ -116,7 +163,9 @@ public class Comparacao {
 
     private static void exibirResultado(String nome, long tempoNanos) {
         double tempoMilissegundos = tempoNanos / 1_000_000.0;
-        System.out.printf("%-18s: %.3f ms%n", nome, tempoMilissegundos);
+
+        System.out.printf("%-18s: %.3f ms%n",
+                nome, tempoMilissegundos);
     }
 
     private static int[] gerarVetor() {
