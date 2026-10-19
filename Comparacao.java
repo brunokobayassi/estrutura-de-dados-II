@@ -2,6 +2,7 @@
 import classes.BubbleSort;
 import classes.InsertionSort;
 import classes.MergeSort;
+import classes.QuickSort;
 import classes.SelectSort;
 import classes.ShellSort;
 import classes.CombSort;
@@ -24,8 +25,6 @@ public class Comparacao {
         SelectSort selectSort = new SelectSort();
         ShellSort shellSort = new ShellSort();
         MergeSort mergeSort = new MergeSort();
-        CombSort combSort = new CombSort();
-        CountingSort countingSort = new CountingSort();
 
         try (Scanner scanner = new Scanner(System.in)) {
             int opcao;
@@ -36,9 +35,7 @@ public class Comparacao {
 
                 switch (opcao) {
                     case 1:
-                        compararAlgoritmos(bubbleSort, insertionSort,
-                                selectSort, shellSort, mergeSort,
-                                combSort, countingSort);
+                        compararAlgoritmos(bubbleSort, insertionSort, selectSort, shellSort, mergeSort);
                         break;
 
                     case 2:
@@ -60,15 +57,6 @@ public class Comparacao {
                     case 6:
                         executarAlgoritmo("Merge Sort", mergeSort::mergeSort);
                         break;
-
-                    case 7:
-                        executarAlgoritmo("Comb Sort", combSort::combSort);
-                        break;
-
-                    case 8:
-                        executarAlgoritmo("Counting Sort", countingSort::countingSort);
-                        break;
-
                     case 0:
                         System.out.println("Programa encerrado.");
                         break;
@@ -89,8 +77,6 @@ public class Comparacao {
         System.out.println("4 - Selection Sort");
         System.out.println("5 - Shell Sort");
         System.out.println("6 - Merge Sort");
-        System.out.println("7 - Comb Sort");
-        System.out.println("8 - Counting Sort");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opcao: ");
     }
@@ -115,15 +101,9 @@ public class Comparacao {
         exibirResultado(nome, fim - inicio);
     }
 
-    private static void compararAlgoritmos(
-            BubbleSort bubbleSort,
-            InsertionSort insertionSort,
-            SelectSort selectSort,
-            ShellSort shellSort,
-            MergeSort mergeSort,
-            CombSort combSort,
-            CountingSort countingSort) {
-
+    private static void compararAlgoritmos(BubbleSort bubbleSort,
+            InsertionSort insertionSort, SelectSort selectSort, ShellSort shellSort,
+            MergeSort mergeSort) {
         int[] vetorOriginal = gerarVetor();
 
         Resultado[] resultados = {
@@ -131,9 +111,7 @@ public class Comparacao {
                 medir("Insertion Sort", insertionSort::insertionSort, vetorOriginal),
                 medir("Selection Sort", selectSort::selectSort, vetorOriginal),
                 medir("Shell Sort", shellSort::shellSort, vetorOriginal),
-                medir("Merge Sort", mergeSort::mergeSort, vetorOriginal),
-                medir("Comb Sort", combSort::combSort, vetorOriginal),
-                medir("Counting Sort", countingSort::countingSort, vetorOriginal)
+                medir("Merge Sort", mergeSort::mergeSort, vetorOriginal)
         };
 
         Arrays.sort(resultados,
